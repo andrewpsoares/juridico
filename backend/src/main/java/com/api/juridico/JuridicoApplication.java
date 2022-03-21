@@ -1,4 +1,4 @@
-package com.lopas.juridico;
+package com.api.juridico;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
