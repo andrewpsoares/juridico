@@ -1,7 +1,7 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Autor, Processo } from "types/processo";
+import { Processo } from "types/processo";
 import { BASE_URL } from "utils/requests";
 
 type Props = {
@@ -11,13 +11,11 @@ type Props = {
 function FormProcesso({ id }: Props) {
 
     const navigate = useNavigate();
-    //const [autor, setAutor] = useState<Autor>();
     const [processo, setProcesso] = useState<Processo>({
         id: 0,
         numero: 0,
         vlrCausa: 0.0,
         autor: {
-            id: 0,
             nome: '',
             cpfCnpj: '',
             tipoPessoa: 'AUTOR'
@@ -30,45 +28,35 @@ function FormProcesso({ id }: Props) {
         }
     }, [id])
 
-    /*useEffect(() => {
-        axios.get(`${BASE_URL}/processos/${id}`)
-            .then(response => {
-                setProcesso(response.data)
-            });
-    }, [id]);*/
-
     function onChange(e: ChangeEvent<HTMLInputElement>) {
         setProcesso({
             ...processo,
             [e.target.name]: e.target.value,
         });
-        console.log(e.target.name + ':' + e.target.value);
+    }
+
+    function onChangeAutor(e: ChangeEvent<HTMLInputElement>) {
+        setProcesso({
+            ...processo,
+            autor: {             
+                nome: e.target.name === 'autor.nome' ? e.target.value : processo.autor.nome,
+                cpfCnpj: e.target.name === 'autor.cpfCnpj' ? e.target.value : processo.autor.cpfCnpj,
+                tipoPessoa: processo.autor.tipoPessoa
+            }
+        } as any);
     }
 
     async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
         e.preventDefault();
+        console.log(processo);
 
-        const config: AxiosRequestConfig = {
-            baseURL: BASE_URL,
-            method: 'POST',
-            url: '/processos',
-            data: {
-                "numero": (e.target as any).numero.value,
-                "autor": {
-                    "nome": (e.target as any).nome.value,
-                    "cpfCnpj": (e.target as any).cpfCnpj.value,
-                    "tipoPessoa": processo.autor.tipoPessoa
-                },
-                "vlrCausa": (e.target as any).vlrCausa.value
-            }
+        if ((id !== undefined) && (id !== 'form')) {
+            await axios.put(`${BASE_URL}/processos/${id}`, processo)
+                .then(Response => { navigate("/processos") });
+        } else {
+            await axios.post(`${BASE_URL}/processos`, processo)
+                .then(Response => { navigate("/processos") });
         }
-        console.log(config);
-        axios(config).then(response => {
-            navigate("/processos");
-        });
-
-        /* const response = await axios.post(`${BASE_URL}/processos`, processo);
-         console.log(response);*/
     }
 
     async function findProcesso(id: String) {
@@ -103,16 +91,16 @@ function FormProcesso({ id }: Props) {
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">Autor</label>
-                            <input type="text" className="form-control" name={processo.autor.nome}
+                            <input type="text" className="form-control" name={"autor.nome"}
                                 value={processo.autor.nome}
-                                onChange={(e) => onChange(e)}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeAutor(e)}
                                 placeholder="Digite o nome do autor do processo" required />
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">CPF / CNPJ</label>
-                            <input type="text" className="form-control" name={processo.autor.cpfCnpj}
+                            <input type="text" className="form-control" name={"autor.cpfCnpj"}
                                 value={processo.autor.cpfCnpj}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e)}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeAutor(e)}
                                 placeholder="Digite o número do cpf/cnpj" required />
                         </div>
                         {/*<div className="col-md-3">

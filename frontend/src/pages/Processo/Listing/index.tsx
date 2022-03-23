@@ -5,6 +5,7 @@ import { BASE_URL } from "utils/requests";
 import { useEffect, useState } from "react";
 import { ProcessoPage } from "types/processo";
 import { Link } from "react-router-dom";
+import { Container } from "react-bootstrap";
 
 function Listing() {
 
@@ -34,7 +35,7 @@ function Listing() {
     }
 
     return (
-        <>
+        <Container>
             <Pagination page={page} onChange={handlePageChange} />
             <div className="col-md-12">
                 <Link to={`/processos/form`}>
@@ -42,6 +43,7 @@ function Listing() {
                 </Link>
             </div>
             <div>
+
                 <table className="table">
                     <thead>
                         <tr>
@@ -49,7 +51,8 @@ function Listing() {
                             <th scope="col">Número</th>
                             <th scope="col">Autor</th>
                             <th scope="col">Valor</th>
-                            <th scope="col">Editar</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,8 +63,10 @@ function Listing() {
                         ))}
                     </tbody>
                 </table>
+
             </div>
-        </>
+        </Container>
+
     )
 }
 

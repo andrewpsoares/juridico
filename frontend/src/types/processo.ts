@@ -6,7 +6,6 @@ export type Processo = {
 }
 
 export type Autor = {
-    id: number; 
     nome:    string;
     cpfCnpj: string;
     tipoPessoa: string;
