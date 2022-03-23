@@ -1,7 +1,7 @@
 package com.api.juridico.controller;
 
 import com.api.juridico.dto.ProcessoDto;
-import com.api.juridico.service.ProcessosService;
+import com.api.juridico.service.ProcessoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +15,7 @@ import javax.validation.Valid;
 @RequestMapping("/processos")
 public class ProcessoController {
     @Autowired
-    private ProcessosService processosService;
+    private ProcessoService processosService;
 
 //    @GetMapping
 //    public List<ProcessoDto> findAll(){
