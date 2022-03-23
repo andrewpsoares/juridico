@@ -15,15 +15,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 @AllArgsConstructor
 @Service
-public class ProcessosService {
+public class ProcessoService {
     @Autowired
     private ProcessoRepository processoRepository;
-    private PessoaService pessoaService;
 
+    private PessoaService pessoaService;
     private ModelMapper modelMapper;
 
     public ProcessoDto findObj(Processo processo){
         return modelMapper.map(processo, ProcessoDto.class);
+    }
+
+    public Processo findProcesso(Long id){
+        return processoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Processo não existe"));
     }
 
 //    public List<ProcessoDto> findAll(){
@@ -47,7 +52,9 @@ public class ProcessosService {
     public ProcessoDto insert(ProcessoDto processoDto){
         Processo processo = ObjectMapperConfig.map(processoDto, Processo.class);
         Pessoa autor = pessoaService.findByCpfCnpj(processo.getAutor());
+        Pessoa reu   = pessoaService.findByCpfCnpj(processo.getReu());
         pessoaService.save(autor);
+        pessoaService.save(reu);
         processoRepository.save(processo);
         return ObjectMapperConfig.map(processo, ProcessoDto.class);
     }
