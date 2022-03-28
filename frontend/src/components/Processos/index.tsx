@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Processo } from "types/processo";
 import { EditIcon } from 'components/buttons/EditIcon'
 import { DeleteIcon } from "components/buttons/DeleteIcon";
