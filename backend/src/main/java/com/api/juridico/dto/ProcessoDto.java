@@ -1,16 +1,13 @@
 package com.api.juridico.dto;
 
 import com.api.juridico.config.ObjectMapperConfig;
-import com.api.juridico.domain.model.EnumStatusProcesso;
-import com.api.juridico.domain.model.EnumTipoProcesso;
+import com.api.juridico.domain.model.enumerator.EnumStatusProcesso;
+import com.api.juridico.domain.model.enumerator.EnumTipoProcesso;
 import com.api.juridico.domain.model.Processo;
-import com.api.juridico.domain.model.Reu;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -31,16 +28,16 @@ public class ProcessoDto {
     private BigDecimal vlrDespesas;
 
     public ProcessoDto(Processo processo) {
-        this.id = processo.getId();
-        this.numero = processo.getNumero();
-        this.autor = ObjectMapperConfig.map(processo.getAutor(), PessoaDto.class);
-        this.reu = ObjectMapperConfig.map(processo.getReu(), PessoaDto.class);
-        this.vlrCausa = processo.getVlrCausa();
-        this.status = processo.getStatus();
-        this.tipo = processo.getTipo();
-        this.dtInclusao = processo.getDtInclusao();
+        this.id          = processo.getId();
+        this.numero      = processo.getNumero();
+        this.autor       = ObjectMapperConfig.map(processo.getAutor(), PessoaDto.class);
+        this.reu         = ObjectMapperConfig.map(processo.getReu(), PessoaDto.class);
+        this.vlrCausa    = processo.getVlrCausa();
+        this.status      = processo.getStatus();
+        this.tipo        = processo.getTipo();
+        this.dtInclusao  = processo.getDtInclusao();
         this.dtUltimaMov = processo.getDtUltimaMov();
-        this.local = processo.getLocal();
+        this.local       = processo.getLocal();
         this.vlrDespesas = processo.getVlrDespesas();
     }
 }

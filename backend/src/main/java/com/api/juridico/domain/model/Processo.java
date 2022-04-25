@@ -1,5 +1,7 @@
 package com.api.juridico.domain.model;
 
+import com.api.juridico.domain.model.enumerator.EnumStatusProcesso;
+import com.api.juridico.domain.model.enumerator.EnumTipoProcesso;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
