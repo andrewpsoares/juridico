@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class ContratoArquivos {
+public class ContratoArquivo {
 
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,8 @@ public class ContratoArquivos {
 
     private String descricao;
 
-    private File arquivo;
+    @Lob
+    private byte[] arquivo;
 
-    private LocalDate dtGeracao = LocalDate.now();
+    private LocalDate dtRegistro = LocalDate.now();
 }
