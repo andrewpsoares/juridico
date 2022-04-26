@@ -38,23 +38,23 @@ public class ContratoController {
         return ResponseEntity.notFound().build();
     }
 
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public ProcessoDto insert(@Valid @RequestBody ProcessoDto processoDto){
-//        return contratoService.insert(processoDto);
-//    }
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ContratoDto insert(@Valid @RequestBody ContratoDto contratoDto){
+        return contratoService.insert(contratoDto);
+    }
 
-//    @PutMapping("/{id}")
-//    public ProcessoDto edit(@Valid @RequestBody ProcessoDto processoDto){
-//        return processosService.edit(processoDto);
-//    }
+    @PutMapping("/{id}")
+    public ContratoDto edit(@Valid @RequestBody ContratoDto contratoDto){
+        return contratoService.edit(contratoDto);
+    }
 
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> delete(@PathVariable Long id) {
-//        if (!processosService.delete(id)){
-//            return ResponseEntity.notFound().build();
-//        }else{
-//            return ResponseEntity.noContent().build();
-//        }
-//    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        if (!contratoService.delete(id)){
+            return ResponseEntity.notFound().build();
+        }else{
+            return ResponseEntity.noContent().build();
+        }
+    }
 }

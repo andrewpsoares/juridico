@@ -4,11 +4,12 @@ import com.api.juridico.domain.model.enumerator.EnumSetor;
 import com.api.juridico.domain.model.enumerator.EnumSituacao;
 import com.api.juridico.domain.model.enumerator.EnumTipoContrato;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class Contrato {
     private Long id;
 
     @Column(name = "NUMERO_CONTRATO")
+    @NotNull
     private Long numero;
 
     @Enumerated(EnumType.STRING)
@@ -37,12 +39,12 @@ public class Contrato {
 
     @ManyToOne
     @JoinColumn(name = "empcontratada_id")
-    @NotBlank @NotNull
+    @NotNull
     private EmpContratada empContratada;
 
     @ManyToOne
     @JoinColumn(name = "empcontratante_id")
-    @NotBlank @NotNull
+    @NotNull
     private EmpContratante empContratante;
 
     @Column(name = "OBJETO_CONTRATO")
@@ -66,16 +68,16 @@ public class Contrato {
     private String observacao;
 
     @OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL)
-    private List<ContratoArquivos> arquivos = new ArrayList<>();
+    private List<ContratoArquivo> arquivos = new ArrayList<>();
 
     @Column(name = "VLR_CONTRATO")
     private BigDecimal vlrContrato;
 
-    public ContratoArquivos insertFile(Long idContrato, String descricao, File arquivo){
-        ContratoArquivos contratoArquivos = new ContratoArquivos();
-        contratoArquivos.setDescricao(descricao);
+    public ContratoArquivo insertFile(Long idContrato, MultipartFile file) throws IOException {
+        ContratoArquivo contratoArquivos = new ContratoArquivo();
+        contratoArquivos.setDescricao(file.getResource().getFilename());
+        contratoArquivos.setArquivo(file.getBytes());
         contratoArquivos.setContrato(this);
-        contratoArquivos.setArquivo(arquivo);
         this.getArquivos().add(contratoArquivos);
         return contratoArquivos;
     }
