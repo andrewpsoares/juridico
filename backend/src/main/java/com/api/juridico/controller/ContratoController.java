@@ -1,9 +1,7 @@
 package com.api.juridico.controller;
 
 import com.api.juridico.dto.ContratoDto;
-import com.api.juridico.dto.ProcessoDto;
 import com.api.juridico.service.ContratoService;
-import com.api.juridico.service.ProcessoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,11 +16,6 @@ import javax.validation.Valid;
 public class ContratoController {
     @Autowired
     private ContratoService contratoService;
-
-//    @GetMapping
-//    public List<ProcessoDto> findAll(){
-//        return processosService.findAll();
-//    }
 
     @GetMapping
     public Page<ContratoDto> findAll(Pageable pageable){

@@ -21,7 +21,7 @@ function FormProcesso({ id }: Props) {
             tipoPessoa: 'AUTOR'
         }
     });
-
+       
     useEffect(() => {
         if ((id !== undefined) && (id !== 'form')) {
             findProcesso(id)

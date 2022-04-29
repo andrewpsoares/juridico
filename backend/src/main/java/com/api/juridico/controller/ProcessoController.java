@@ -17,11 +17,6 @@ public class ProcessoController {
     @Autowired
     private ProcessoService processosService;
 
-//    @GetMapping
-//    public List<ProcessoDto> findAll(){
-//        return processosService.findAll();
-//    }
-
     @GetMapping
     public Page<ProcessoDto> findAll(Pageable pageable){
         return processosService.findAll(pageable);
